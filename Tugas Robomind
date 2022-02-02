@@ -1,0 +1,88 @@
+hasBeacon = false
+procedure toRoute(){
+    right
+    repeatWhile(not frontIsWhite){forward}
+    }
+procedure getPaintDir(paint){
+    if(paint==0){
+        if(rightIsWhite){
+            right
+            }
+        if(leftIsWhite){
+            left
+            }
+        }
+    if(paint==1){
+        if(rightIsBlack){
+            right
+            }
+        if(leftIsBlack){
+            left
+            }
+        }
+    }
+procedure followRoute(){
+    repeatWhile(frontIsWhite){
+        forward
+        if(not frontIsWhite){
+            getPaintDir(0)
+            }
+        }
+    }
+procedure followBlackPaint(){
+    repeatWhile(frontisblack){
+        forward
+        if(not frontIsblack){
+            getPaintDir(1)
+            }
+        }
+    }
+procedure ganti(){
+    paintBlack
+    if(not hasBeacon){
+        right
+        repeatwhile(frontIsClear){forward}
+        right
+        repeatWhile(leftIsObstacle){forward}
+        left
+        repeatWhile(frontIsClear){forward}
+        left
+        forward
+        pickup
+        hasBeacon = true
+        }
+    if(hasBeacon){
+        left(2)
+        followBlackPaint()
+        repeatWhile(frontIsClear){forward}
+        backward
+        putDown
+        }
+    stopPainting
+    
+}
+procedure Eight(size){
+    paintWhite
+    repeat(3){
+        left
+        forward(size)
+        }
+    repeat(3){
+        right
+        forward(size)
+        }
+    right
+    forward(size)
+    left
+    forward(size)
+    stopPainting
+    }
+
+
+
+toRoute()
+followRoute()
+ganti()
+left
+repeatWhile(frontIsClear){forward}
+Eight(2)
